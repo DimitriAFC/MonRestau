@@ -80,6 +80,10 @@ class Restaurant
         $this->products = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return $this->name;
+    } 
 
     public function getId(): ?int
     {
