@@ -39,6 +39,10 @@ class Secteur
         $this->restaurants = new ArrayCollection();
         $this->infoUsers = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return $this->name;
+    }   
 
     public function getId(): ?int
     {
