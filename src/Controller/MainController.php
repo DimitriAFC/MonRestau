@@ -21,15 +21,16 @@ class MainController extends AbstractController
             
         ]);
     }
-       /**
+    
+    /**
      * @Route("/produitrestaurant/{id}", name="produitrestaurant")
      */
     public function show(RestaurantRepository $restaurantRepository,ProductRepository $product,$id): Response
     {
-        $productByResto = $product->findBy(['relation_restaurant'=>$id]);
+        
         return $this->render('main/produitrestaurant.html.twig', [
             'restaurants' => $restaurantRepository->findAll(),
-            'products'=>$productByResto
+            'products'=>$product->findBy(['relation_restaurant'=> $id]),
         ]);
     }
 }
