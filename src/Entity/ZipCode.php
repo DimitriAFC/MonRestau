@@ -62,7 +62,10 @@ class ZipCode
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->number;
+    }   
     /**
      * @return Collection|Restaurant[]
      */
