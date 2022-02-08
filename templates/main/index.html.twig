@@ -7,8 +7,7 @@
  {% for restaurant in restaurants %}
  <li>{{ restaurant.name }} </li>
   <li>{{ restaurant.id }} </li>
-
-<a href="{{path('produitrestaurant',{'id':restaurant.id}) }}">ici</a>
+  <a href="{{path('produitrestaurant',{'id':restaurant.id}) }}">ici</a>
 
 
  {% endfor %}
