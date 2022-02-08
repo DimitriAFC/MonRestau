@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello InfoUserController!{% endblock %}
+
+{% block body %}
+
+
+<h1>Modifications des informations utilisateurs.</h1>
+
+  {{ form_start(form) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.adress) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.adress) }}
+     
+       
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(form) }}
+    
+{% endblock %}
