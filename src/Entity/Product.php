@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,26 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="products")
+     */
+    private $relation_restaurant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     */
+    private $relation_category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product")
+     */
+    private $relation_cart;
+
+    public function __construct()
+    {
+        $this->relation_cart = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +125,60 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getRelationRestaurant(): ?Restaurant
+    {
+        return $this->relation_restaurant;
+    }
+
+    public function setRelationRestaurant(?Restaurant $relation_restaurant): self
+    {
+        $this->relation_restaurant = $relation_restaurant;
+
+        return $this;
+    }
+
+    public function getRelationCategory(): ?Category
+    {
+        return $this->relation_category;
+    }
+
+    public function setRelationCategory(?Category $relation_category): self
+    {
+        $this->relation_category = $relation_category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getRelationCart(): Collection
+    {
+        return $this->relation_cart;
+    }
+
+    public function addRelationCart(Cart $relationCart): self
+    {
+        if (!$this->relation_cart->contains($relationCart)) {
+            $this->relation_cart[] = $relationCart;
+            $relationCart->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationCart(Cart $relationCart): self
+    {
+        if ($this->relation_cart->removeElement($relationCart)) {
+            // set the owning side to null (unless already changed)
+            if ($relationCart->getProduct() === $this) {
+                $relationCart->setProduct(null);
+            }
+        }
 
         return $this;
     }
