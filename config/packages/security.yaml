@@ -37,7 +37,8 @@ security:
     access_control:
         - { path: ^/restaurateur, roles: ROLE_RESTAURATEUR }
         - { path: ^/livreur, roles : ROLE_LIVREUR }
-        - { path: ^/client, roles: ROLE_USER , ROLE_RESTAURATEUR  }
+        
+     
 
 when@test:
     security:

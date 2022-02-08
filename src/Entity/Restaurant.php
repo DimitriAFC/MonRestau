@@ -69,6 +69,11 @@ class Restaurant
      */
     private $deliveries;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->relation_zipcode = new ArrayCollection();
@@ -245,6 +250,18 @@ class Restaurant
                 $delivery->setRelationRestaurant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
