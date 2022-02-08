@@ -1,0 +1,46 @@
+{% extends 'baseRestaurant.html.twig' %}
+
+{% block title %}Delivery{% endblock %}
+
+{% block body %}
+    <h1>Delivery</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ delivery.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ delivery.date ? delivery.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ delivery.time ? delivery.time|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Adress</th>
+                <td>{{ delivery.adress }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ delivery.city }}</td>
+            </tr>
+            <tr>
+                <th>TotalPrice</th>
+                <td>{{ delivery.totalPrice }}</td>
+            </tr>
+            <tr>
+                <th>ShippingCost</th>
+                <td>{{ delivery.shippingCost }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('delivery_index') }}">back to list</a>
+
+    <a href="{{ path('delivery_edit', {'id': delivery.id}) }}">edit</a>
+
+    {{ include('delivery/_delete_form.html.twig') }}
+{% endblock %}

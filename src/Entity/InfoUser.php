@@ -53,7 +53,7 @@ class InfoUser
     private $relation_secteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Zipcode::class, inversedBy="infoUsers")
+     * @ORM\ManyToOne(targetEntity=ZipCode::class, inversedBy="infoUsers")
      */
     private $relation_zipcode;
 
@@ -156,12 +156,12 @@ class InfoUser
         return $this;
     }
 
-    public function getRelationZipcode(): ?Zipcode
+    public function getRelationZipcode(): ?ZipCode
     {
         return $this->relation_zipcode;
     }
 
-    public function setRelationZipcode(?Zipcode $relation_zipcode): self
+    public function setRelationZipcode(?ZipCode $relation_zipcode): self
     {
         $this->relation_zipcode = $relation_zipcode;
 
