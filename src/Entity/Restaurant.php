@@ -40,7 +40,7 @@ class Restaurant
     private $city;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Zipcode::class, inversedBy="restaurants")
+     * @ORM\ManyToMany(targetEntity=ZipCode::class, inversedBy="restaurants")
      */
     private $relation_zipcode;
 
@@ -130,14 +130,14 @@ class Restaurant
     }
 
     /**
-     * @return Collection|Zipcode[]
+     * @return Collection|ZipCode[]
      */
     public function getRelationZipcode(): Collection
     {
         return $this->relation_zipcode;
     }
 
-    public function addRelationZipcode(Zipcode $relationZipcode): self
+    public function addRelationZipcode(ZipCode $relationZipcode): self
     {
         if (!$this->relation_zipcode->contains($relationZipcode)) {
             $this->relation_zipcode[] = $relationZipcode;
@@ -146,7 +146,7 @@ class Restaurant
         return $this;
     }
 
-    public function removeRelationZipcode(Zipcode $relationZipcode): self
+    public function removeRelationZipcode(ZipCode $relationZipcode): self
     {
         $this->relation_zipcode->removeElement($relationZipcode);
 
