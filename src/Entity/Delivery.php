@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DeliveryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,41 @@ class Delivery
      * @ORM\Column(type="float")
      */
     private $shippingCost;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Livreur::class, inversedBy="relation_delivery")
+     */
+    private $livreur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="deliveries")
+     */
+    private $relation_User;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ZipCode::class, inversedBy="deliveries")
+     */
+    private $relation_zipcode;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Status::class, inversedBy="deliveries")
+     */
+    private $relation_status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="deliveries")
+     */
+    private $relation_restaurant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="deliveries")
+     */
+    private $relation_cart;
+
+    public function __construct()
+    {
+        $this->relation_status = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +157,90 @@ class Delivery
     public function setShippingCost(float $shippingCost): self
     {
         $this->shippingCost = $shippingCost;
+
+        return $this;
+    }
+
+    public function getLivreur(): ?Livreur
+    {
+        return $this->livreur;
+    }
+
+    public function setLivreur(?Livreur $livreur): self
+    {
+        $this->livreur = $livreur;
+
+        return $this;
+    }
+
+    public function getRelationUser(): ?User
+    {
+        return $this->relation_User;
+    }
+
+    public function setRelationUser(?User $relation_User): self
+    {
+        $this->relation_User = $relation_User;
+
+        return $this;
+    }
+
+    public function getRelationZipcode(): ?ZipCode
+    {
+        return $this->relation_zipcode;
+    }
+
+    public function setRelationZipcode(?ZipCode $relation_zipcode): self
+    {
+        $this->relation_zipcode = $relation_zipcode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Status[]
+     */
+    public function getRelationStatus(): Collection
+    {
+        return $this->relation_status;
+    }
+
+    public function addRelationStatus(Status $relationStatus): self
+    {
+        if (!$this->relation_status->contains($relationStatus)) {
+            $this->relation_status[] = $relationStatus;
+        }
+
+        return $this;
+    }
+
+    public function removeRelationStatus(Status $relationStatus): self
+    {
+        $this->relation_status->removeElement($relationStatus);
+
+        return $this;
+    }
+
+    public function getRelationRestaurant(): ?Restaurant
+    {
+        return $this->relation_restaurant;
+    }
+
+    public function setRelationRestaurant(?Restaurant $relation_restaurant): self
+    {
+        $this->relation_restaurant = $relation_restaurant;
+
+        return $this;
+    }
+
+    public function getRelationCart(): ?Cart
+    {
+        return $this->relation_cart;
+    }
+
+    public function setRelationCart(?Cart $relation_cart): self
+    {
+        $this->relation_cart = $relation_cart;
 
         return $this;
     }

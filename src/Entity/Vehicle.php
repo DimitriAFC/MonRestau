@@ -27,6 +27,11 @@ class Vehicle
      */
     private $number_plate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Livreur::class, inversedBy="relation_vehicle")
+     */
+    private $livreur;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Vehicle
     public function setNumberPlate(string $number_plate): self
     {
         $this->number_plate = $number_plate;
+
+        return $this;
+    }
+
+    public function getLivreur(): ?Livreur
+    {
+        return $this->livreur;
+    }
+
+    public function setLivreur(?Livreur $livreur): self
+    {
+        $this->livreur = $livreur;
 
         return $this;
     }

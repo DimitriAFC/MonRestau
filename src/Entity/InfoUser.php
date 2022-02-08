@@ -37,6 +37,26 @@ class InfoUser
      */
     private $city;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Livreur::class, mappedBy="relation_infoUser", cascade={"persist", "remove"})
+     */
+    private $livreur;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $relation_user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Secteur::class, inversedBy="infoUsers")
+     */
+    private $relation_secteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Zipcode::class, inversedBy="infoUsers")
+     */
+    private $relation_zipcode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +106,64 @@ class InfoUser
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getLivreur(): ?Livreur
+    {
+        return $this->livreur;
+    }
+
+    public function setLivreur(?Livreur $livreur): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($livreur === null && $this->livreur !== null) {
+            $this->livreur->setRelationInfoUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($livreur !== null && $livreur->getRelationInfoUser() !== $this) {
+            $livreur->setRelationInfoUser($this);
+        }
+
+        $this->livreur = $livreur;
+
+        return $this;
+    }
+
+    public function getRelationUser(): ?User
+    {
+        return $this->relation_user;
+    }
+
+    public function setRelationUser(?User $relation_user): self
+    {
+        $this->relation_user = $relation_user;
+
+        return $this;
+    }
+
+    public function getRelationSecteur(): ?Secteur
+    {
+        return $this->relation_secteur;
+    }
+
+    public function setRelationSecteur(?Secteur $relation_secteur): self
+    {
+        $this->relation_secteur = $relation_secteur;
+
+        return $this;
+    }
+
+    public function getRelationZipcode(): ?Zipcode
+    {
+        return $this->relation_zipcode;
+    }
+
+    public function setRelationZipcode(?Zipcode $relation_zipcode): self
+    {
+        $this->relation_zipcode = $relation_zipcode;
 
         return $this;
     }

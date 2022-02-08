@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,43 @@ class Restaurant
      * @ORM\Column(type="string", length=100)
      */
     private $city;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Zipcode::class, inversedBy="restaurants")
+     */
+    private $relation_zipcode;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Secteur::class, inversedBy="restaurants")
+     */
+    private $relation_secteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="restaurants")
+     */
+    private $relation_user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=RestaurantType::class, inversedBy="restaurants")
+     */
+    private $relation_type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="relation_restaurant")
+     */
+    private $products;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Delivery::class, mappedBy="relation_restaurant")
+     */
+    private $deliveries;
+
+    public function __construct()
+    {
+        $this->relation_zipcode = new ArrayCollection();
+        $this->products = new ArrayCollection();
+        $this->deliveries = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +125,126 @@ class Restaurant
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Zipcode[]
+     */
+    public function getRelationZipcode(): Collection
+    {
+        return $this->relation_zipcode;
+    }
+
+    public function addRelationZipcode(Zipcode $relationZipcode): self
+    {
+        if (!$this->relation_zipcode->contains($relationZipcode)) {
+            $this->relation_zipcode[] = $relationZipcode;
+        }
+
+        return $this;
+    }
+
+    public function removeRelationZipcode(Zipcode $relationZipcode): self
+    {
+        $this->relation_zipcode->removeElement($relationZipcode);
+
+        return $this;
+    }
+
+    public function getRelationSecteur(): ?Secteur
+    {
+        return $this->relation_secteur;
+    }
+
+    public function setRelationSecteur(?Secteur $relation_secteur): self
+    {
+        $this->relation_secteur = $relation_secteur;
+
+        return $this;
+    }
+
+    public function getRelationUser(): ?User
+    {
+        return $this->relation_user;
+    }
+
+    public function setRelationUser(?User $relation_user): self
+    {
+        $this->relation_user = $relation_user;
+
+        return $this;
+    }
+
+    public function getRelationType(): ?RestaurantType
+    {
+        return $this->relation_type;
+    }
+
+    public function setRelationType(?RestaurantType $relation_type): self
+    {
+        $this->relation_type = $relation_type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setRelationRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getRelationRestaurant() === $this) {
+                $product->setRelationRestaurant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Delivery[]
+     */
+    public function getDeliveries(): Collection
+    {
+        return $this->deliveries;
+    }
+
+    public function addDelivery(Delivery $delivery): self
+    {
+        if (!$this->deliveries->contains($delivery)) {
+            $this->deliveries[] = $delivery;
+            $delivery->setRelationRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDelivery(Delivery $delivery): self
+    {
+        if ($this->deliveries->removeElement($delivery)) {
+            // set the owning side to null (unless already changed)
+            if ($delivery->getRelationRestaurant() === $this) {
+                $delivery->setRelationRestaurant(null);
+            }
+        }
 
         return $this;
     }
