@@ -31,7 +31,7 @@ class RestaurantController extends AbstractController
      * @Route("/new", name="restaurant_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    { 
         $restaurant = new Restaurant();
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
