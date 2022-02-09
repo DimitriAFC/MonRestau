@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class InfoUserController extends AbstractController
 {
     /**
-     * @Route("/user", name="info_user")
+     * @Route("/info/user", name="info_user")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     { 
@@ -27,6 +27,7 @@ class InfoUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $form = 
             $InfoUser->setRelationUser($user);
             $entityManager->persist($InfoUser); 
             $entityManager->flush();
@@ -36,17 +37,16 @@ class InfoUserController extends AbstractController
         ]);
 }
 
- /**
+/**
      * @Route("/informations", name="informations")
      */
     public function show(InfoUserRepository $infoUserRepository): Response
     { 
         $user = $this->getUser();
-        $info = $infoUserRepository->findBy(['user'=>$user]);
+        $info = $infoUserRepository->findAll();
         return $this->render('info_user/informations.html.twig', [
             'info' => $info,
         ]);
     }
 
 }
-
