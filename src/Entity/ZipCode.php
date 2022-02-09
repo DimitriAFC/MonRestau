@@ -39,6 +39,13 @@ class ZipCode
      */
     private $deliveries;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $city;
+
+
+
     public function __construct()
     {
         $this->restaurants = new ArrayCollection();
@@ -152,4 +159,18 @@ class ZipCode
 
         return $this;
     }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    
 }

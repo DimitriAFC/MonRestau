@@ -1,0 +1,19 @@
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                          <div class="single-popular-items mb-50 text-center">
+                              <div class="popular-img">
+                                  <img src="{{asset('image/'~restaurant.picture)}}" alt="">
+                                  <div class="img-cap">
+                                     
+                                        <span> <a href="{{path('produitrestaurant',{'id':restaurant.id}) }}">Voir</a></span>
+               
+                                  </div>
+                                  <div class="favorit-items">
+                                      <span class="flaticon-heart"></span>
+                                  </div>
+                              </div>
+                              <div class="popular-caption">
+                                  <h3> <a href="{{path('produitrestaurant',{'id':restaurant.id}) }}">{{restaurant.name}} - {{restaurant.city}}</a></h3>
+                                 
+                              </div>
+                          </div>
+                      </div>

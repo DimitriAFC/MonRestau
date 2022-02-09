@@ -4,16 +4,83 @@
 
 {% block body %}
 
+<main>
+        <!-- Hero Area Start-->
+        <div class="slider-area ">
+            <div class="single-slider slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap text-center">
+                            
+                                <h2>Restaurants</h2>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <!-- Hero Area End-->
+        <!-- Latest Products Start -->
+        <section class="popular-items latest-padding">
+            <div class="container">
+                <div class="row product-btn justify-content-between mb-40">
+                    <div class="properties__button">
+                        <!--Nav Button  -->
+                        <nav>                                                      
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Fast-food</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Chinois </a>
+                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Pizzeria</a>
+                            </div>
+                        </nav>
+                        <!--End Nav Button  -->
+                    </div>
+                    </div>
+                   
+                <!-- Nav Card -->
+                <div class="tab-content" id="nav-tabContent">  
 
+
+                    <!-- card one -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <h1>Fast-food</h1>
+                        <div class="row">
+                         {% for restaurant in restaurantFF %}
+                        
+                         {% include 'main/restaurant.html.twig' %}
+                        {% endfor %}
+                        </div>
+                        </div>
+                    
+                         
+                    <!-- Card two type produit -->
+                    <!--for -->
+                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <h1>Chinois</h1>
+                        <div class="row">
+                         {% for restaurant in restaurantC %}
+                          {% include 'main/restaurant.html.twig' %}
+                        {% endfor %}
+                        </div>
+                        </div>
+                      
+                         
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"></div>
+                            <h1>Pizzeria </h1>
+                            <div class="row">
+                         {% for restaurant in restaurantP %}
+                         {% include 'main/restaurant.html.twig' %}
+                        {% endfor %}
+                        </div>
+                        </div>
+
+                </div>
+                <!-- End Nav Card -->
+            </div>
+        </section>
  
- {% for restaurant in restaurants %}
- <li>{{ restaurant.name }} </li>
-  <li>{{ restaurant.id }} </li>
-
-<a href="{{path('produitrestaurant',{'id':restaurant.id}) }}">ici</a>
-
-
- {% endfor %}
-
 
 {% endblock %}

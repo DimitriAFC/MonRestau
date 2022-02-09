@@ -15,9 +15,15 @@ class MainController extends AbstractController
      */
     public function index(RestaurantRepository $restaurantRepository): Response
     {
+        $restaurantC = $restaurantRepository->findBy(['relation_type'=>3]);
+        $restaurantFF= $restaurantRepository->findBy(['relation_type'=>1]);
+        $restaurantP= $restaurantRepository->findBy(['relation_type'=>2]);
        
         return $this->render('main/index.html.twig', [
-            'restaurants' => $restaurantRepository->findAll(),
+            //'restaurants' => $restaurantRepository->findAll(),
+            'restaurantC'=>$restaurantC,
+            'restaurantFF'=>$restaurantFF,
+            'restaurantP'=>$restaurantP,
             
         ]);
     }
