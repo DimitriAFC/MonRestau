@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\InfoUser;
-use PhpParser\Node\Stmt\Label;
+use App\Entity\Secteur;
+use App\Repository\SecteurRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,9 +19,12 @@ class InfosUsersType extends AbstractType
         $builder
             ->add('firstName',TextType::class,
             ['label' => 'Prénom'])
-            ->add('lastName')
-            ->add('adress')
-            ->add('city')
+            ->add('lastName',TextType::class,
+            ['label' => 'Nom'])
+            ->add('adress',TextType::class,
+            ['label' => 'Adresse'])
+            ->add('city',TextType::class,
+            ['label' => 'Ville'])
             // ->add('livreur')
             // ->add('relation_user')
             ->add('relation_secteur')
