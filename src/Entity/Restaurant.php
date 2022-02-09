@@ -74,11 +74,23 @@ class Restaurant
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="restaurant")
+     */
+    private $relation_order;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="restaurant")
+     */
+    private $relation_cart;
+
     public function __construct()
     {
         $this->relation_zipcode = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
+        $this->relation_order = new ArrayCollection();
+        $this->relation_cart = new ArrayCollection();
     }
     public function __toString()
     {
@@ -266,6 +278,66 @@ class Restaurant
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getRelationOrder(): Collection
+    {
+        return $this->relation_order;
+    }
+
+    public function addRelationOrder(Order $relationOrder): self
+    {
+        if (!$this->relation_order->contains($relationOrder)) {
+            $this->relation_order[] = $relationOrder;
+            $relationOrder->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationOrder(Order $relationOrder): self
+    {
+        if ($this->relation_order->removeElement($relationOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($relationOrder->getRestaurant() === $this) {
+                $relationOrder->setRestaurant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getRelationCart(): Collection
+    {
+        return $this->relation_cart;
+    }
+
+    public function addRelationCart(Cart $relationCart): self
+    {
+        if (!$this->relation_cart->contains($relationCart)) {
+            $this->relation_cart[] = $relationCart;
+            $relationCart->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationCart(Cart $relationCart): self
+    {
+        if ($this->relation_cart->removeElement($relationCart)) {
+            // set the owning side to null (unless already changed)
+            if ($relationCart->getRestaurant() === $this) {
+                $relationCart->setRestaurant(null);
+            }
+        }
 
         return $this;
     }
