@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+
+<h1>Profil utilisateur</h1>
+
+    {% if app.user %}
+         {%for infos in info%}
+            <li>{{ infos.lastName}}</li>
+            <li>{{ infos.firstName}}</li>
+            <li>{{ infos.adress}}</li>
+            <li>{{ infos.city}}</li>
+            {# <li>{{ infos.relation_zipcode}}</li> #}
+         {% endfor %}
+    {% else %}
+    <p>Vous n'êtes pas connecté</p>
+    {% endif %}
+
+
+{% endblock %}
