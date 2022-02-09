@@ -34,6 +34,11 @@ class Cart
      */
     private $product;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="relation_cart")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->deliveries = new ArrayCollection();
@@ -94,6 +99,18 @@ class Cart
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

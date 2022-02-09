@@ -54,10 +54,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $deliveries;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="user")
+     */
+    private $relation_cart;
+
     public function __construct()
     {
         $this->restaurants = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
+        $this->relation_cart = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +226,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($delivery->getRelationUser() === $this) {
                 $delivery->setRelationUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getRelationCart(): Collection
+    {
+        return $this->relation_cart;
+    }
+
+    public function addRelationCart(Cart $relationCart): self
+    {
+        if (!$this->relation_cart->contains($relationCart)) {
+            $this->relation_cart[] = $relationCart;
+            $relationCart->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationCart(Cart $relationCart): self
+    {
+        if ($this->relation_cart->removeElement($relationCart)) {
+            // set the owning side to null (unless already changed)
+            if ($relationCart->getUser() === $this) {
+                $relationCart->setUser(null);
             }
         }
 
