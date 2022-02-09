@@ -26,9 +26,19 @@ class MainController extends AbstractController
      */
     public function show(RestaurantRepository $restaurantRepository,ProductRepository $product,$id): Response
     {
-        return $this->render('main/produitrestaurant.html.twig', [
+        return $this->render('main/listeproduit.html.twig', [
             'restaurants' => $restaurantRepository->findAll(),
             'products'=>$product->findBy(['relation_restaurant'=> $id]),
+        ]);
+    }
+           /**
+     * @Route("/fiche/{id}", name="produit_id")
+     */
+    public function fiche($id,ProductRepository $productRepository)
+    {
+      
+        return $this->render('main/produit.html.twig', [
+            'product'=> $productRepository->find($id),
         ]);
     }
 }
