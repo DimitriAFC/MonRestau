@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Restaurant;
 use App\Form\RestaurantType;
 use App\Repository\RestaurantRepository;
+use App\Repository\RestaurantTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

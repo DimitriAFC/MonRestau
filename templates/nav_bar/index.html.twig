@@ -16,8 +16,10 @@
                                     <li><a href="#">Categories</a>
                                         <ul class="submenu">
                                             <li>
-                                            
-                                                <a href="">TEST</a> 
+                                                {% for restaurant_type in restaurant_types %}
+                                                    <a href="">{{ restaurant_type.name }}</a> 
+                                                {% endfor %}
+
                                             </li>
                                         </ul>
                                     </li>
