@@ -5,6 +5,9 @@ use App\Entity\Order;
 use App\Form\OrderType;
 use App\Entity\OrderItem;
 use App\Repository\CartRepository;
+use App\Repository\OrderItemRepository;
+use App\Repository\OrderRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,17 +48,13 @@ class OrderController extends AbstractController
     /**
      * @Route("/commande/recupilatif", name="order_recap" )
      */
-    public function add(CartRepository $cartRepository,Request $request): Response
+    public function add(CartRepository $cartRepository,Request $request,OrderRepository $orderRepository,OrderItemRepository $OrderItemRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
-        
         $cart = $cartRepository->findBy(array('user'=>$user->getId()));
-
-     
         $form = $this->createForm(OrderType::class);
-
         $total=0;
-
+   
        $form->handleRequest($request);
        if ($form->isSubmitted() && $form->isValid()){
          
@@ -63,13 +62,11 @@ class OrderController extends AbstractController
             $adress = $form->get('adress')->getData();
             $zipcode = $form->get('zipcode')->getData();
             $city = $form->get('city')->getData();
-            $delivery = $form->get('adress')->getData();
             $lastname = $form->get('LastName')->getData();
             $firsttname = $form->get('firstName')->getData();
             $time = $form->get('time')->getData();
             $number = $form->get('number')->getData();
 
-           
             $order=new Order();
             $order->setUser($user);
             $order->setDate($date);
@@ -80,15 +77,12 @@ class OrderController extends AbstractController
             $order->setCity($city);
             $order->setNumber($number);
           //  $order->setEmail($user->getEmail());
-            $order->setStatus("commande validé");
+            $order->setStatus("en attente");
            
            $order->setTime($time);
 
             $this->entityManager->persist($order);
             
-             $totalWeight =0 ;
-       
-   
             foreach ($cart as $cartitem ){
                 $orderItem = new OrderItem();
                 $cartPrice = $cartitem->getProduct()->getPrice();
@@ -103,25 +97,42 @@ class OrderController extends AbstractController
                 $orderItem->setTotal($cartTotal);
                 $this->entityManager->persist($orderItem);
                 $resto = $cartitem->getRestaurant();
-            
-            }
-            foreach($cart as $cartitem){
                 $total = $total + ($cartitem->getQuantity() * $cartitem->getProduct()->getPrice());
-                
-                }
-               
                 $order->setRestaurant($resto);
+
+            }
+         
+            //$order->setRestaurant($resto);
             $shipping = "3";
             $order->setTotal($total);
             $order->setShipping($shipping);
+
             $this->entityManager->persist($order);
-            
             $this->entityManager->flush();
             
+    }
 
-        return $this->render('order/valide.html.twig', [
-           
-        ]);
+    $cart = $cartRepository->findBy(array('user'=>$this->getUser()->getId()));
+    foreach ($cart as $cartitem){
+        $product = $productRepository->findOneBy(array('id'=>$cartitem->getProduct()->getId()));
+        $product->setStock($product->getStock() - $cartitem->getQuantity());
     }
+    $this->entityManager->flush();
+    $this->entityManager->persist($product);
+
+    foreach($cart as $cartitem){
+        $this->entityManager->remove($cartitem); 
     }
+    
+    $this->entityManager->flush();
+    $cart=null;
+    $articles = $OrderItemRepository->findBy(['orders'=>$order->getId()]);
+    return $this->render('order/valide.html.twig', [
+
+        'cart'=>$cart,
+        'order'=>$order,
+        'articles'=>$articles,
+    ]);
+    }
+   
 }

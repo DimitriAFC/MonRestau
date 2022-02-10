@@ -18,11 +18,23 @@ class OrderRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Order::class);
     }
-
+    // public function findByExampleField($restaurant)
+    // {
+    //     return $this->createQueryBuilder('o')
+    //         ->andWhere('o.restaurant = :restaurant.id')
+    //         ->setParameter('restaurant.id', $restaurant)
+    //         ->orderBy('o.id', 'ASC')
+            
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */
     /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('o')
@@ -34,7 +46,7 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Order

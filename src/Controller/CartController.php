@@ -60,6 +60,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
             $panierquantity = $panier->getQuantity();
             $panierquantity = $panierquantity + $quantity;
             $panier->setQuantity($panierquantity);
+            $resto = $product->getRelationRestaurant();
             
             
         }else{

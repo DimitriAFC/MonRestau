@@ -1,0 +1,55 @@
+{% extends 'baseRestaurant.html.twig' %}
+
+{% block title %}Order index{% endblock %}
+
+{% block body %}
+    <h1>Order index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Adress</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Shipping</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Number</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.firstName }}</td>
+                <td>{{ order.LastName }}</td>
+                <td>{{ order.adress }}</td>
+                <td>{{ order.zipcode }}</td>
+                <td>{{ order.city }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.total }}</td>
+                <td>{{ order.shipping }}</td>
+                <td>{{ order.date ? order.date|date('Y-m-d') : '' }}</td>
+                <td>{{ order.time ? order.time|date('H:i:s') : '' }}</td>
+                <td>{{ order.number }}</td>
+                <td>
+                    <a href="{{ path('order_crud_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('order_crud_edit', {'id': order.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('order_crud_new') }}">Create new</a>
+{% endblock %}
