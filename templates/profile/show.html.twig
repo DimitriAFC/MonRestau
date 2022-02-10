@@ -1,22 +1,24 @@
-{% extends 'baseRestaurant.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Order{% endblock %}
+{% block title %}Commande{% endblock %}
 
 {% block body %}
-   
-    {% set sousTotal = 0 %}
 
-<div class="content-wrapper">
+{% set sousTotal = 0 %}
+<a href="{{path('myorder')}}">
+<i class="fas fa-arrow-alt-circle-left fa-3x" style="color:#F670C9;"></i></a>
+<div class="content-wrapper" style="margin:10%;padding:5%;">
     <div class="container-fluid">
     <h3>Commande {{ order.id }}</h3><br>
      <div class='col-md-12 text-right mt-3 mb-4'>
-                         <p>Commande passé le {{ order.date ? order.date|date('Y-m-d') : '' }}
-               livraison souhaité pour {{ order.time ? order.time|date('H:i:s') : '' }}</p> 
-    </div>
+                        <p>Commande passé le {{ order.date|date('d/m/Y')}}</p>
+                        <p>Status de la commande : {{order.status}}</p>
+                
+                    </div>
         <div class="row">
   
                     <div class='col-md-6'>
-                        <h4> Adresse de Livraison :</h4><br>
+                        <h4> Adresse de facturation :</h4><br>
                         <h5>{{ order.LastName }} {{ order.firstName }}</h5>
                         {# <p>{{ order.email }} <br> #}
                         {{ order.number }}<br>
@@ -26,7 +28,7 @@
                         </p>
                        
                     </div>
-                       <div class='col-md-6'>
+                    <div class='col-md-6'>
         
                     <h4> Adresse du restaurant:</h4> 
                     {{ order.restaurant }} <br>
@@ -34,15 +36,24 @@
                     {{ order.restaurant.city}} -
                    <br>{{ order.restaurant.phone}} </div>
                     </div>
+                   <br>
+                    <h5>Frais de livraison</h5>
+                    <br>
+               
+                    <p>{{ order.shipping }} €</p>
+               
+                    </div>
                 </div>
+                
                 <div class='row mt-5'>
-                    <div class='col-md-12'>
+                
+                    <div class='col-md-8'>
                         <h3>Articles :</h3>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col-md-3'>
-                        <h5>id</h5>
+                        <h5>Reference</h5>
                     </div>
                     <div class='col-md-3'>
                         <h5>Nom</h5>
@@ -60,7 +71,7 @@
                         <p>{{ article.product.id }}</p>
                     </div>
                  <div class='col-md-3'>
-                        <p>{{ article.product.name }}</p>
+                        <p>{{ article.product.name }}<br> <img src=""  alt="" style="height:100px;"></p>
                     </div>
                         <div class='col-md-3'>
                         <p>{{ article.quantity}}</p>
@@ -72,6 +83,7 @@
                 
                   
                 </div>
+               
                 <div class='row dropdown-divider'></div>
                 {% set articleTotal = article.priceUnit * article.quantity %}
                 {% set sousTotal = sousTotal + articleTotal %}
@@ -86,7 +98,7 @@
                     <div class='col-md-12 text-right'>
                         <div class='row'>
                             <div class="col-md-10"><h5>Expédition :</h5></div>
-                            <div class="col-md-2">{{ order.shipping|number_format(2) }}   </div>
+                            <div class="col-md-2">{{ order.shipping|number_format(2) }} €  </div>
                         </div>
                     </div>
                     <div class='col-md-12 text-right'>
@@ -101,32 +113,11 @@
                             <div class="col-md-2"><p> {{ order.shipping + sousTotal|number_format(2) }} €</p></div>
                         </div>
                     </div>
-                    <div class='col-md-6'>
-                        <p>Status de la commande : {{order.status}}</p>
-                        <label class='mt-5'>Changer le status</label>
-                        <form method='post' action='{{path('order_status_update')}}'>
-                        <input type="hidden" name="orderId" value="{{ order.id }}">
-                        <select class='form-control' name='statusId'>
-                        <option value="accepte" >commande acceptée</option>
-                           <option value="enPreparation">commande en preparation</option>
-                           <option value="prete" >prête</option>
-                           
-                            
-                        </select>
-                        <button id='update_status' class='btn btn-outline-white btn-white mt-5'>Changer</button>
-                        </form>
-                        
-                      
-                    </div>
+                 
                    
                 </div>
             </div>
         </div>
-        <a href="{{ path('order_crud_index') }}">back to list</a>
-
-    <a href="{{ path('order_crud_edit', {'id': order.id}) }}">edit</a>
-
-    {{ include('order_crud/_delete_form.html.twig') }} 
     </div>
 </div>
 {% endblock %}
