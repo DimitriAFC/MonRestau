@@ -17,16 +17,36 @@ class InfosUsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName',TextType::class,
-            ['label' => 'Prénom'])
-            ->add('lastName',TextType::class,
-            ['label' => 'Nom'])
-            ->add('adress',TextType::class,
-            ['label' => 'Adresse'])
-            ->add('city',TextType::class,
-            ['label' => 'Ville'])
+            ->add('firstName',TextType::class,[
+                'label' => false,
+                'attr'=>[
+                    'placeholder'=>'Prénom',
+                    'class'=> 'form-control w-100 mb-2',
+                    ],
+            ])
+            ->add('lastName',TextType::class,[
+                'label' => false,
+                'attr'=>[
+                    'placeholder'=>'Nom',
+                    'class'=> 'form-control w-100 mb-2',
+                    ],
+                ])
+            ->add('adress',TextType::class,[
+                'label' => false,
+                'attr'=>[
+                    'placeholder'=>'Adresse',
+                    'class'=> 'form-control w-100 mb-2',
+                    ],
+            ])
+            ->add('city',TextType::class,[
+                'label' => false,
+                'attr'=>[
+                    'placeholder'=>'Ville',
+                    'class'=> 'form-control w-100 mb-2',
+                    ],
+            ])
             // ->add('livreur')
-            ->add('relation_zipcode') 
+            ->add('relation_zipcode',) 
         ;
     }
 
