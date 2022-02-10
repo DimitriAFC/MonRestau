@@ -13,13 +13,12 @@
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="{{ path('main') }}">Acceuil</a></li>
-                                    <li><a href="#">Categories</a>
+                                    <li><a href="#">Categories </a>
                                         <ul class="submenu">
                                             <li>
                                                 {% for restaurant_type in restaurant_types %}
                                                     <a href="">{{ restaurant_type.name }}</a> 
                                                 {% endfor %}
-
                                             </li>
                                         </ul>
                                     </li>
@@ -36,11 +35,11 @@
                                     <ul class="submenu">
                                         <li>
                                             {% if app.user %}
-                                                <a href="{{ path('informations') }}">Mon profil</a>
+                                                <a href="{{ path('informations') }}">Mon profil </a>
                                                 <a href="{{ path('app_logout') }}">Déconnexion</a>
                                             {% else %}
                                                 <a href="{{ path('app_login') }}">Connexion</a>
-                                                <a href="{{ path('app_register') }}">Inscription</a>
+                                                <a href="{{ path('app_register') }}">Inscription </a>
                                             {% endif %}
                                         </li>
                                     </ul>
