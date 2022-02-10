@@ -24,11 +24,7 @@ class Cart
      */
     private $quantity;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Delivery::class, mappedBy="relation_cart")
-     */
-    private $deliveries;
-
+ 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="relation_cart")
      */
@@ -38,6 +34,13 @@ class Cart
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="relation_cart")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="relation_cart")
+     */
+    private $restaurant;
+
+    
 
     public function __construct()
     {
@@ -61,35 +64,7 @@ class Cart
         return $this;
     }
 
-    /**
-     * @return Collection|Delivery[]
-     */
-    public function getDeliveries(): Collection
-    {
-        return $this->deliveries;
-    }
-
-    public function addDelivery(Delivery $delivery): self
-    {
-        if (!$this->deliveries->contains($delivery)) {
-            $this->deliveries[] = $delivery;
-            $delivery->setRelationCart($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDelivery(Delivery $delivery): self
-    {
-        if ($this->deliveries->removeElement($delivery)) {
-            // set the owning side to null (unless already changed)
-            if ($delivery->getRelationCart() === $this) {
-                $delivery->setRelationCart(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     public function getProduct(): ?Product
     {
@@ -111,6 +86,18 @@ class Cart
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
 
         return $this;
     }

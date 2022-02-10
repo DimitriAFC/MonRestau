@@ -59,9 +59,15 @@ class Product
      */
     private $relation_cart;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="product")
+     */
+    private $relation_orderitem;
+
     public function __construct()
     {
         $this->relation_cart = new ArrayCollection();
+        $this->relation_orderitem = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,6 +183,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($relationCart->getProduct() === $this) {
                 $relationCart->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getRelationOrderitem(): Collection
+    {
+        return $this->relation_orderitem;
+    }
+
+    public function addRelationOrderitem(OrderItem $relationOrderitem): self
+    {
+        if (!$this->relation_orderitem->contains($relationOrderitem)) {
+            $this->relation_orderitem[] = $relationOrderitem;
+            $relationOrderitem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationOrderitem(OrderItem $relationOrderitem): self
+    {
+        if ($this->relation_orderitem->removeElement($relationOrderitem)) {
+            // set the owning side to null (unless already changed)
+            if ($relationOrderitem->getProduct() === $this) {
+                $relationOrderitem->setProduct(null);
             }
         }
 
