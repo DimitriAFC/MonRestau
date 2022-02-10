@@ -26,7 +26,7 @@ class InfosUsersType extends AbstractType
             ->add('city',TextType::class,
             ['label' => 'Ville'])
             // ->add('livreur')
-            ->add('relation_zipcode')
+            ->add('relation_zipcode') 
         ;
     }
 
