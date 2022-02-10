@@ -7,18 +7,13 @@
 
 <h1>Modifications des informations utilisateurs.</h1>
 
-{# {{form(form)}} #}
-  {{ form_start(form) }}
-
+   {{ form_start(form) }}
         {{ form_row(form.firstName) }}
         {{ form_row(form.lastName) }}
         {{ form_row(form.adress) }}
         {{ form_row(form.city) }}
-        {{ form_row(form.relation_secteur, {'label': 'Secteur'} )}}
-        {{ form_row(form.relation_zipcode,{'label': 'Code postale'}) }}
-
-        <button type="submit" class="btn">Enregistrer</button>
-        <button type="submit" class="btn">Retour</button>
-  {{ form_end(form) }} 
+        {{ form_row(form.relation_zipcode,{'label': 'Code postale'})}} 
+        <button type="submit" class="btn-success">Enregistrer</button>
+    {{ form_end(form) }} 
     
 {% endblock %}
