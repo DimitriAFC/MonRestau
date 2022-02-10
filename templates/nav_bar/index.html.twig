@@ -35,7 +35,8 @@
                                     <ul class="submenu">
                                         <li>
                                             {% if app.user %}
-                                                <a href="{{ path('informations') }}">Mon profil </a>
+                                                <a href="{{ path('informations') }}">Mon profil</a>
+                                              <a href="{{path('myorder')}}">Mes commandes</a>
                                                 <a href="{{ path('app_logout') }}">Déconnexion</a>
                                             {% else %}
                                                 <a href="{{ path('app_login') }}">Connexion</a>
