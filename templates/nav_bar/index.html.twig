@@ -16,8 +16,10 @@
                                     <li><a href="#">Categories</a>
                                         <ul class="submenu">
                                             <li>
-                                            
-                                                <a href="">TEST</a> 
+                                                {% for restaurant_type in restaurant_types %}
+                                                    <a href="">{{ restaurant_type.name }}</a> 
+                                                {% endfor %}
+
                                             </li>
                                         </ul>
                                     </li>
@@ -28,10 +30,22 @@
                             </nav>
                         </div>
                         <!-- Header Right -->
-                        <div class="header-right">
-                            <ul>
-                                <li> <a href=""><span class="flaticon-user"></span></a></li>
-                                <li><a href=""><span class="flaticon-shopping-cart"></span></a> </li>
+                        <div class="header-right main-menu">
+                            <ul id="navigation">
+                                <li> <a href="#"><span class="flaticon-user"></span></a>
+                                    <ul class="submenu">
+                                        <li>
+                                            {% if app.user %}
+                                                <a href="{{ path('informations') }}">Mon profil</a>
+                                                <a href="{{ path('app_logout') }}">Déconnexion</a>
+                                            {% else %}
+                                                <a href="{{ path('app_login') }}">Connexion</a>
+                                                <a href="{{ path('app_register') }}">Inscription</a>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="{{ path('panier') }}"><span class="flaticon-shopping-cart"></span></a> </li>
                             </ul>
                         </div>
                     </div>
