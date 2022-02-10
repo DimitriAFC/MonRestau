@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Order index</h1>
-
+    <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
@@ -50,6 +50,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
     <a href="{{ path('order_crud_new') }}">Create new</a>
 {% endblock %}
