@@ -1,0 +1,14 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Hello InfoLivreurController!{% endblock %}
+
+{% block body %}
+
+<h1>Véhicule du livreur</h1>
+
+ {{ form_start(form) }}
+        {{ form_row(form.type,{'label': 'Marque et Modèle du véhicule'})}} 
+        {{ form_row(form.number_plate,{'label': 'Plaque d\'immatriculation véhicule'})}} 
+        <button type="submit" class="btn-success">Enregistrer</button>
+    {{ form_end(form) }} 
+{% endblock %}
