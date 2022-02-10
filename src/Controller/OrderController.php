@@ -31,7 +31,7 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
         $user = $this->getUser();
         $cart = $cartRepository->findBy(array('user'=>$user->getId()));
- 
+        $shipping = "3";
         $total = 0;
     
         foreach($cart as $cartitem){
@@ -42,6 +42,7 @@ class OrderController extends AbstractController
             'form'=>$form->createView(),
             'cart'=>$cart,
             'total'=> $total,
+            'shipping'=>$shipping,
             
         ]);
     }
@@ -54,6 +55,7 @@ class OrderController extends AbstractController
         $cart = $cartRepository->findBy(array('user'=>$user->getId()));
         $form = $this->createForm(OrderType::class);
         $total=0;
+        $shipping = "3";
    
        $form->handleRequest($request);
        if ($form->isSubmitted() && $form->isValid()){
@@ -132,6 +134,7 @@ class OrderController extends AbstractController
         'cart'=>$cart,
         'order'=>$order,
         'articles'=>$articles,
+        'shipping'=>$shipping,
     ]);
     }
    

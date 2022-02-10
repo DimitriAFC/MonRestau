@@ -102,16 +102,15 @@
                         </div>
                     </div>
                     <div class='col-md-6'>
+                     <p>pris en charge par le livreur : {{ order.livreur.email }} </p>
                         <p>Status de la commande : {{order.status}}</p>
                         <label class='mt-5'>Changer le status</label>
                         <form method='post' action='{{path('order_status_update')}}'>
                         <input type="hidden" name="orderId" value="{{ order.id }}">
                         <select class='form-control' name='statusId'>
                         <option value="accepte" >commande acceptée</option>
-                           <option value="enPreparation">commande en preparation</option>
                            <option value="prete" >prête</option>
-                           
-                            
+
                         </select>
                         <button id='update_status' class='btn btn-outline-white btn-white mt-5'>Changer</button>
                         </form>

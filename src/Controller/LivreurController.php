@@ -26,6 +26,19 @@ class LivreurController extends AbstractController
             'orders'=>$order,
         ]);
     }
+     /**
+     * @Route("/commande/livre", name="livreur_livre")
+     */
+    public function livre(OrderRepository $orderRepository): Response
+    {
+        $user = $this->getUser();
+        $order = $orderRepository->findBy(array('livreur'=>$user,'status'=>"valider")); 
+       
+        return $this->render('livreur/index.html.twig', [
+            
+            'orders'=>$order,
+        ]);
+    }
     /**
      * @Route("/{id}", name="livreur_show", methods={"GET"})
      */
