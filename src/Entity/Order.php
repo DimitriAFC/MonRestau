@@ -91,6 +91,11 @@ class Order
      */
     private $relation_orderitem;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="livreur")
+     */
+    private $livreur;
+
     public function __construct()
     {
         $this->relation_orderitem = new ArrayCollection();
@@ -290,6 +295,18 @@ class Order
                 $relationOrderitem->setOrders(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLivreur(): ?User
+    {
+        return $this->livreur;
+    }
+
+    public function setLivreur(?User $livreur): self
+    {
+        $this->livreur = $livreur;
 
         return $this;
     }

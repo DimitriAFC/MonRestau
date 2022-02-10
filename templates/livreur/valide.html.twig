@@ -4,8 +4,8 @@
 
 {% block body %}
 
-<h1>Liste des commandes a prendre en charge</h1>
-    <div class="table-responsive">
+<h1>Commande à Valider aprés réception</h1>
+
     <table class="table">
         <thead>
             <tr>
@@ -40,7 +40,7 @@
                 <td>{{ order.time ? order.time|date('H:i:s') : '' }}</td>
                 <td>{{ order.number }}</td>
                 <td>
-                    <a href="{{ path('livreur_show', {'id': order.id}) }}">Voir</a>
+                    <a href="{{ path('livreur_show_valide', {'id': order.id}) }}">Voir</a>
                    
                 </td>
             </tr>
@@ -51,5 +51,4 @@
         {% endfor %}
         </tbody>
     </table>
-    </div>
 {% endblock %}
