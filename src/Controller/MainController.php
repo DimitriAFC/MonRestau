@@ -27,8 +27,7 @@ class MainController extends AbstractController
             
         ]);
     }
-    
-    /**
+       /**
      * @Route("/produitrestaurant/{id}", name="produitrestaurant")
      */
     public function show(RestaurantRepository $restaurantRepository,ProductRepository $product,$id): Response
