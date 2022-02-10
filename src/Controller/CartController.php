@@ -34,7 +34,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         }
         
        
-        return $this->render('cart/index.html.twig', [
+        return $this->render('panier/index.html.twig', [
         'categories'=>$CategoryRepository->findAll(),
         'panier'=>$cartRepository->findBy(array('user'=>$user)),
         'total'=> $total,
@@ -42,7 +42,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     }
 
     /**
-     * @Route("/ajout/{id}" , name="panier_add")
+     * @Route("/add/{id}" , name="panier_add")
      */
     public function add(CartRepository $cartRepository,int $id, ProductRepository $productRepository)
     {
@@ -50,29 +50,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         $user = $this->getUser();
        
         $panier = $cartRepository->findOneBy(array('product'=> $id ,'user'=>$user));
-        $product= $productRepository->find($id);
-      //  $restaurant =$productRepository->getRelationRestaurant();
-        //$resto= $product->getRelationCart();
+        $article= $productRepository->find($id);
    
             $quantity=1;
+        
         
         if($panier){
             $panierquantity = $panier->getQuantity();
             $panierquantity = $panierquantity + $quantity;
             $panier->setQuantity($panierquantity);
             
-            
         }else{
             
             $panier = new Cart();
             $panier->setQuantity($quantity);
-            $panier->setUser($user);
-            $resto = $product->getRelationRestaurant();
-            $panier->setProduct($product);
-            
+         //   $panier->setUser($user);
+            $panier->setProduct($article);
             
         }
-        $panier->setRestaurant($resto);
+       
  
         $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($panier);
@@ -81,13 +77,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
             return $this->redirectToRoute('panier');
     }
     /**
-     * @Route("/suppression/{id}" , name="product_suppression")
+     * @Route("/remove/{id}" , name="panier_suppression")
      */
     public function remove(CartRepository $cartRepository,int $id)
     {
         $user = $this->getUser();
  
-        $panier = $cartRepository->findOneBy(array('product'=>$id ,'user'=>$user));
+        $panier = $cartRepository->findOneBy(array('article'=>$id ,'user'=>$user));
       
         $panierquantite = $panier->getQuantity();
        
@@ -105,12 +101,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     }
 
      /**
-     * @Route("/suppression_produit{id}" , name="suppression_product")
+     * @Route("/suppression_article/{id}" , name="suppression_article")
      */
     public function suppressionProduit(CartRepository $cartRepository,int $id)
     {
         $user=$this->getUser();
-        $panier = $cartRepository->findOneBy(array('product'=>$id,'user'=>$user));
+        $panier = $cartRepository->findOneBy(array('article'=>$id,'user'=>$user));
         $entityManager= $this->getDoctrine()->getManager();
         $entityManager->remove($panier);
         $entityManager->flush();

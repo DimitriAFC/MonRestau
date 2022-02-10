@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\Entity\InfoUser;
 use App\Form\InfosUsersType;
 use App\Repository\InfoUserRepository;
-use App\Repository\RestaurantTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +18,7 @@ class InfoUserController extends AbstractController
     /**
      * @Route("/user", name="info_user")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager,RestaurantTypeRepository $restaurantTypeRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     { 
 
         $user = $this->getUser();
@@ -35,7 +34,6 @@ class InfoUserController extends AbstractController
         }
         return $this->render('info_user/index.html.twig', [
             'form' => $form->createView(),
-            'restaurant_types' => $restaurantTypeRepository->findAll(),
         ]);
 }
 
