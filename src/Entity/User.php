@@ -63,12 +63,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $relation_order;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="livreur")
+     */
+    private $livreur;
+
     public function __construct()
     {
         $this->restaurants = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
         $this->relation_cart = new ArrayCollection();
         $this->relation_order = new ArrayCollection();
+        $this->livreur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,6 +296,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($relationOrder->getUser() === $this) {
                 $relationOrder->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getLivreur(): Collection
+    {
+        return $this->livreur;
+    }
+
+    public function addLivreur(Order $livreur): self
+    {
+        if (!$this->livreur->contains($livreur)) {
+            $this->livreur[] = $livreur;
+            $livreur->setLivreur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivreur(Order $livreur): self
+    {
+        if ($this->livreur->removeElement($livreur)) {
+            // set the owning side to null (unless already changed)
+            if ($livreur->getLivreur() === $this) {
+                $livreur->setLivreur(null);
             }
         }
 
