@@ -24,7 +24,6 @@ class MainController extends AbstractController
             'restaurantC'=>$restaurantC,
             'restaurantFF'=>$restaurantFF,
             'restaurantP'=>$restaurantP,
-            
         ]);
     }
        /**

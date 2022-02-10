@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Delivery;
+use App\Entity\Cart;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DeliveryType extends AbstractType
 {
@@ -23,7 +25,13 @@ class DeliveryType extends AbstractType
             ->add('relation_zipcode')
             ->add('relation_status')
             ->add('relation_restaurant')
-            ->add('relation_cart')
+            ->add('relation_cart',EntityType::class,[
+                'label'=>false,
+                'required'=>true,
+                'class'=>Cart::class,
+                'multiple'=>false,
+                'expanded'=>true,
+        ])
         ;
     }
 
