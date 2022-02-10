@@ -4,20 +4,28 @@
 
 {% block body %}
 
-
-<h1>Profil utilisateur</h1>
-
-    {% if app.user %}
-         {%for infos in info%}
-            <li>{{ infos.lastName}}</li>
-            <li>{{ infos.firstName}}</li>
-            <li>{{ infos.adress}}</li>
-            <li>{{ infos.city}}</li>
-            {# <li>{{ infos.relation_zipcode}}</li> #}
-         {% endfor %}
-    {% else %}
+{% if app.user %}
+    <div class="d-flex flex-column align-items-center">
+        <div class="card" style="width: 25rem;">
+        <div class="card-header text-center">
+        Profil utilisateur
+        </div>
+        <ul class="list-group list-group-flush">
+            {%for infos in info%}
+                <li class="list-group-item">Nom : {{ infos.lastName}}</li>
+                <li class="list-group-item">Prénom : {{ infos.firstName}}</li>
+                <li class="list-group-item">Adresse : {{ infos.adress}}</li>
+                <li class="list-group-item">Ville : {{ infos.city }}</li>
+            {% endfor %}
+        </ul>
+                <a href="{{ path('info_user') }}" class="btn btn-info">Modifier</a>
+        </div>    
+    </div>
+{% else %}
     <p>Vous n'êtes pas connecté</p>
-    {% endif %}
+{% endif %}
+
+
 
 
 {% endblock %}
