@@ -7,6 +7,7 @@ use App\Entity\InfoUser;
 use App\Form\InfosUsersType;
 use App\Repository\InfoUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class InfoUserController extends AbstractController
 {
     /**
-     * @Route("/info/user", name="info_user")
+     * @Route("/user", name="info_user")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     { 
@@ -27,7 +28,6 @@ class InfoUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $form = 
             $InfoUser->setRelationUser($user);
             $entityManager->persist($InfoUser); 
             $entityManager->flush();
@@ -43,7 +43,7 @@ class InfoUserController extends AbstractController
     public function show(InfoUserRepository $infoUserRepository): Response
     { 
         $user = $this->getUser();
-        $info = $infoUserRepository->findAll();
+        $info = $infoUserRepository->findBy(array('relation_user'=>$user)); 
         return $this->render('info_user/informations.html.twig', [
             'info' => $info,
         ]);
