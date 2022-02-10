@@ -7,17 +7,26 @@
 
 <h1>Profil utilisateur</h1>
 
-    {% if app.user %}
-         {%for infos in info%}
-            <li>{{ infos.lastName}}</li>
-            <li>{{ infos.firstName}}</li>
-            <li>{{ infos.adress}}</li>
-            <li>{{ infos.city}}</li>
-            {# <li>{{ infos.relation_zipcode}}</li> #}
-         {% endfor %}
-    {% else %}
-    <p>Vous n'êtes pas connecté</p>
-    {% endif %}
+{% if app.user %}
+{%for infos in info%}
+<div class="alert alert-warning" role="alert">
+    Nom : {{ infos.lastName}}
+</div>
+<div class="alert alert-danger" role="alert">
+    Prénom : {{ infos.firstName}}
+</div>
+<div class="alert alert-success" role="alert">
+    Adresse  : {{ infos.adress}}
+</div>
+<div class="alert alert-info" role="alert">
+    Ville : {{ infos.city}}
+</div>
+
+{# <li>{{ infos.relation_zipcode}}</li> #}
+{% endfor %}
+{% else %}
+<p>Vous n'êtes pas connecté</p>
+{% endif %}
 
 
 {% endblock %}
