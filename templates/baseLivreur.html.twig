@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Administration</title>
+  <title>Livreur</title>
 
   <!-- loader-->
   <link href="{{asset('admin/assets/css/pace.min.css')}}" rel="stylesheet" />
@@ -41,7 +41,7 @@
       <div class="brand-logo">
         <a href="">
 
-          <h3 class="logo-text">site</h3>
+          <h3 class="logo-text">Livreur</h3>
         </a>
       </div>
       <ul class="sidebar-menu do-nicescrol">
@@ -54,6 +54,9 @@
         </li>
          <li>
           <a href="{{path('livreur_Valide')}}"><i class="zmdi zmdi-card"></i><span>Commande à VALIDER</span></a>
+        </li>
+        <li>
+          <a href="{{path('livreur_livre')}}"><i class="zmdi zmdi-card"></i><span>Mes commandes livrées</span></a>
         </li>
        
           <a href="{{path('app_logout')}}" target="_blank"> <i class="zmdi zmdi-lock"></i><span>Déconnexion</span> </a>

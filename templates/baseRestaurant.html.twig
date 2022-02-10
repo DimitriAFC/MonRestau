@@ -41,7 +41,7 @@
       <div class="brand-logo">
         <a href="">
 
-          <h3 class="logo-text">site</h3>
+          <h3 class="logo-text">Restaurant</h3>
         </a>
       </div>
       <ul class="sidebar-menu do-nicescrol">
@@ -50,7 +50,22 @@
           <a href=""><i class="zmdi zmdi-view-dashboard"></i><span>Tableaux de bord</span></a>
         </li>
         <li>
-          <a href="{{path('order_crud_index')}}"><i class="zmdi zmdi-card"></i><span>Commande</span></a>
+          <a href="{{path('order_crud_index')}}"><i class="zmdi zmdi-card"></i><span> toute les Commandes</span></a>
+        </li>
+          <li>
+          <a href="{{path('order_attente')}}"><i class="zmdi zmdi-card"></i><span>Commande en attente</span></a>
+        </li>
+         <li>
+          <a href="{{path('order_accepte')}}"><i class="zmdi zmdi-card"></i><span>Commande acceptée</span></a>
+        </li>
+         <li>
+          <a href="{{path('order_prete')}}"><i class="zmdi zmdi-card"></i><span>Commande prete</span></a>
+        </li>
+          <li>
+          <a href="{{path('order_enlivraison')}}"><i class="zmdi zmdi-card"></i><span>Commande en cour de livraison</span></a>
+        </li>
+         <li>
+          <a href="{{path('order_livre')}}"><i class="zmdi zmdi-card"></i><span>Commande livré</span></a>
         </li>
         <li> <a href=""><i class="zmdi zmdi-account-circle"></i> <span>Clients</span></a>
         </li>

@@ -12,6 +12,7 @@
                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
+                                           
                                     <li><a href="{{ path('main') }}">Acceuil</a></li>
                                     <li><a href="#">Categories</a>
                                         <ul class="submenu">
@@ -45,6 +46,7 @@
                                             {% endif %}
                                         </li>
                                     </ul>
+                           
                                 </li>
                                 <li><a href="{{ path('panier') }}"><span class="flaticon-shopping-cart"></span></a> </li>
                             </ul>
@@ -57,5 +59,10 @@
                 </div>
             </div>
         </div>
+
+         <ul class="navbar-nav align-items-center right-nav-link">
+                                             <li class="nav-item dropdown-lg">
+                                            {{ render(controller('App\\Controller\\SearchController::searchBar')) }}
+                                            </li>
         <!-- Header End -->
     </header>

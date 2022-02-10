@@ -31,6 +31,71 @@ class OrderCrudController extends AbstractController
          
         ]);
     }
+     /**
+     * @Route("/enattente", name="order_attente", methods={"GET"})
+     */
+    public function enattente(OrderRepository $orderRepository,RestaurantRepository $restaurantRepository): Response
+    {
+        $user = $this->getUser();
+        $restoid = $restaurantRepository->findBy(array('relation_user'=>$user)); 
+        $resto = $orderRepository->findBy(['restaurant'=>$restoid,'status'=>"en attente"]);
+        return $this->render('order_crud/index.html.twig', [
+            'orders' => $resto,
+         
+        ]);
+    }
+      /**
+     * @Route("/accepte", name="order_accepte", methods={"GET"})
+     */
+    public function accepte(OrderRepository $orderRepository,RestaurantRepository $restaurantRepository): Response
+    {
+        $user = $this->getUser();
+        $restoid = $restaurantRepository->findBy(array('relation_user'=>$user)); 
+        $resto = $orderRepository->findBy(['restaurant'=>$restoid,'status'=>"accepte"]);
+        return $this->render('order_crud/index.html.twig', [
+            'orders' => $resto,
+         
+        ]);
+    }
+        /**
+     * @Route("/prete", name="order_prete", methods={"GET"})
+     */
+    public function prete(OrderRepository $orderRepository,RestaurantRepository $restaurantRepository): Response
+    {
+        $user = $this->getUser();
+        $restoid = $restaurantRepository->findBy(array('relation_user'=>$user)); 
+        $resto = $orderRepository->findBy(['restaurant'=>$restoid,'status'=>"prete"]);
+        return $this->render('order_crud/index.html.twig', [
+            'orders' => $resto,
+         
+        ]);
+    }
+       /**
+     * @Route("/enLivraison", name="order_enlivraison", methods={"GET"})
+     */
+    public function enlivraison(OrderRepository $orderRepository,RestaurantRepository $restaurantRepository): Response
+    {
+        $user = $this->getUser();
+        $restoid = $restaurantRepository->findBy(array('relation_user'=>$user)); 
+        $resto = $orderRepository->findBy(['restaurant'=>$restoid,'status'=>"enLivraison"]);
+        return $this->render('order_crud/index.html.twig', [
+            'orders' => $resto,
+         
+        ]);
+    }
+       /**
+     * @Route("/livre", name="order_livre", methods={"GET"})
+     */
+    public function livre(OrderRepository $orderRepository,RestaurantRepository $restaurantRepository): Response
+    {
+        $user = $this->getUser();
+        $restoid = $restaurantRepository->findBy(array('relation_user'=>$user)); 
+        $resto = $orderRepository->findBy(['restaurant'=>$restoid,'status'=>"valider"]);
+        return $this->render('order_crud/index.html.twig', [
+            'orders' => $resto,
+         
+        ]);
+    }
 
     /**
      * @Route("/new", name="order_crud_new", methods={"GET", "POST"})
