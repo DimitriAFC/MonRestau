@@ -9,6 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NavBarController extends AbstractController
 {
+    /**
+     * @Route("/nav/bar", name="nav_bar")
+     */
     public function index(RestaurantTypeRepository $restaurantTypeRepository): Response
     {
         return $this->render('nav_bar/index.html.twig', [
