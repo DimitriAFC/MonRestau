@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+<div class="content-wrapper" style="margin:10%;padding:5%;">
+  <div class="text-center">
+    <h3>Merci pour votre commande
+      {{ order.LastName }}
+      {{ order.firstName }}
+      !</h3>
+    <br>
+    <p>votre commande 
+      <span style="color:black;">{{ order.id }}</span> à bien été acceptée !!</p>
+  </div>
+  <h4 class="text-center">Retrouvez le récupilatif de votre commande :</h4>
+  {% set sousTotal = 0 %}
+  <br>
+  <div class="row">
+
+    <div class='col-md-6'>
+      <h4>
+        Adresse de livraison :</h4><br>
+      <h5>{{ order.LastName }}
+        {{ order.firstName }}</h5>
+     {#  <p>{{ order.email }}#}
+        <br>
+        {{ order.number }}<br>
+      
+        <br>
+        {{ order.adress }}<br>
+        {{ order.zipcode }}
+        {{ order.city }}
+
+      </p>
+
+    </div>
+    
+  </div>
+  <div class='row mt-5'>
+    <div class='col-md-12'>
+      <h3>Articles :</h3>
+    </div>
+  </div>
+  <div class='row'>
+ 
+    <div class='col-md-3'>
+      <h5>Nom</h5>
+    </div>
+    <div class='col-md-3'>
+      <h5>Quantité</h5>
+    </div>
+    <div class='col-md-3'>
+      <h5>Prix</h5>
+    </div>
+  </div>
+  {% for article in articles %}
+    <div class='row mt-3'>
+     
+      <div class='col-md-3'>
+        <p>{{ article.product.name }}</p>
+      </div>
+      <div class='col-md-3'>
+        <p>{{ article.quantity}}</p>
+      </div>
+      <div class='col-md-3'>
+        <p>{{ article.priceunit }}</p>
+      </div>
+
+    </div>
+    <div class='row dropdown-divider'></div>
+    {% set articleTotal = article.priceunit * article.quantity %}
+    {% set sousTotal = sousTotal + articleTotal %}
+  {% endfor %}
+  <div class='row mt-5'>
+    <div class='col-md-12 text-right'>
+      <div class='row'>
+        <div class="col-md-8">
+          <h5>Sous-total :</h5>
+        </div>
+        <div class="col-md-2">
+          <p>{{sousTotal|number_format(2)}}
+            €</p>
+        </div>
+      </div>
+    </div>
+    <div class='col-md-12 text-right'>
+      <div class='row'>
+      
+      </div>
+    </div>
+    <div class='col-md-12 text-right'>
+      <div class='row'>
+        <div class="col-md-9">
+        <h5>Frais de livraison</h5>
+        </div>
+        <div class="col-md-3">
+         <p>{{ order.shipping|number_format(2) }} €</p>
+          <div class='row dropdown-divider'></div>
+        </div>
+      </div>
+    </div>
+    <div class='col-md-12 text-right mt-3 mb-4'>
+      <div class='row'>
+        <div class="col-md-8">
+          <h4>TOTAL : </h4>
+        </div>
+        <div class="col-md-2">
+          <p>{{ order.shipping + sousTotal|number_format(2) }} €</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
