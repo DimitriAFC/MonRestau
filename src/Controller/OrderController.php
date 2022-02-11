@@ -55,7 +55,7 @@ class OrderController extends AbstractController
         $cart = $cartRepository->findBy(array('user'=>$user->getId()));
         $form = $this->createForm(OrderType::class);
         $total=0;
-        $shipping = "3";
+        $shipping = 0;
    
        $form->handleRequest($request);
        if ($form->isSubmitted() && $form->isValid()){
@@ -101,11 +101,17 @@ class OrderController extends AbstractController
                 $resto = $cartitem->getRestaurant();
                 $total = $total + ($cartitem->getQuantity() * $cartitem->getProduct()->getPrice());
                 $order->setRestaurant($resto);
+                $restoZipcode = $cartitem->getRestaurant()->getRelationZipcode();
 
             }
+            if($zipcode == $restoZipcode ){
+                $shipping = "3";
+            }else{
+                $shipping = "4";
+            }
          
-            //$order->setRestaurant($resto);
-            $shipping = "3";
+            $order->setRestaurant($resto);
+           
             $order->setTotal($total);
             $order->setShipping($shipping);
 
