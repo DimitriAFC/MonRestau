@@ -18,6 +18,7 @@ class InfoLivreurController extends AbstractController
      */
     public function index(): Response
     {
+
         return $this->render('info_livreur/index.html.twig', [
             'controller_name' => 'InfoLivreurController',
         ]);
@@ -28,9 +29,7 @@ class InfoLivreurController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     { 
-
         $user = $this->getUser()->getId();      
-
         $Vehicle = new Vehicle();
         $form = $this->createForm(VehicleType::class, $Vehicle);
         $form->handleRequest($request);
@@ -39,10 +38,20 @@ class InfoLivreurController extends AbstractController
             $Vehicle->setLivreur($user);
             $entityManager->persist($Vehicle); 
             $entityManager->flush();
+
         }
         return $this->render('info_livreur/index.html.twig', [
             'form' => $form->createView(),
         ]);
 }
     
+    /**
+     * @Route("/livreur/acceuil", name="acceuil_livreur")
+     */
+    public function acceuil(): Response
+    {
+        return $this->render('info_livreur/acceuil.html.twig', [
+            'controller_name' => 'InfoLivreurController',
+        ]);
+    }
 }

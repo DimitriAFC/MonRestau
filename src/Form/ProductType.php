@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Product;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends AbstractType
@@ -17,8 +19,13 @@ class ProductType extends AbstractType
             ->add('stock')
             ->add('picture')
             ->add('description')
-            ->add('relation_restaurant')
-            ->add('relation_category')
+            ->add('relation_category',EntityType::class,[
+                'class'=>Category::class,
+                'label'=>'Choisir la catégorie',
+                'choice_label'=>'name',
+                'multiple'=>true,
+                'required'=>true,
+            ])
         ;
     }
 

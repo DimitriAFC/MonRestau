@@ -2,9 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Secteur;
+use App\Entity\ZipCode;
 use App\Entity\Restaurant;
+use App\Entity\RestaurantType as EntityRestaurantType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RestaurantType extends AbstractType
@@ -18,7 +22,6 @@ class RestaurantType extends AbstractType
             ->add('city')
             ->add('relation_zipcode')
             ->add('relation_secteur')
-            ->add('relation_user')
             ->add('relation_type')
             ->add('picture')
         ;

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\RestaurantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/product")
+ * @Route("restaurateur/product")
  */
 class ProductController extends AbstractController
 {
@@ -29,13 +30,15 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="product_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,RestaurantRepository $restaurantRepository): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
+        $user = $this->getUser();
+        $restaurant =$restaurantRepository-> findOneBy(['relation_user'=>$user]);
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->setRelationRestaurant($restaurant);
             $entityManager->persist($product);
             $entityManager->flush();
 

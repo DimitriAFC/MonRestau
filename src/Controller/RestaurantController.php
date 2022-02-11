@@ -30,13 +30,17 @@ class RestaurantController extends AbstractController
     /**
      * @Route("/new", name="restaurant_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,RestaurantRepository $restaurantRepository): Response
     { 
         $restaurant = new Restaurant();
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
+        $user = $this->getUser();
+        
+    
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $restaurant->setRelationUser($user);
             $entityManager->persist($restaurant);
             $entityManager->flush();
 
