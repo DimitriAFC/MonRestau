@@ -67,7 +67,9 @@
         <p>Total de votre panier :{{ total }} € </p>
 
         <p>Frais de livraison : {{ shipping }} €</p>
-        <p>Total TTC : <span class="totalOrder"></span> € </p>
+         {% for cartitem in cart %}
+        <p>Total TTC : <span class="totalOrder"></span>  {{total + shipping}}€ </p>
+             {% endfor %}
         {{ form_end(form) }}
         </div>
 
