@@ -102,7 +102,11 @@
                         </div>
                     </div>
                     <div class='col-md-6'>
+                    {% if  order.livreur  == null %}
+
+                    {% else  %}
                      <p>pris en charge par le livreur : {{ order.livreur.email }} </p>
+                     {% endif %}
                         <p>Status de la commande : {{order.status}}</p>
                         <label class='mt-5'>Changer le status</label>
                         <form method='post' action='{{path('order_status_update')}}'>
