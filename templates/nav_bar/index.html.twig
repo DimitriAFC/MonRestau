@@ -11,8 +11,7 @@
                         <!-- Main-menu -->
                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
-                                <ul id="navigation">  
-                                           
+                                <ul id="navigation">      
                                     <li><a href="{{ path('main') }}">Acceuil</a></li>
                                     <li><a href="#">Categories </a>
                                         <ul class="submenu">
@@ -26,6 +25,12 @@
                                     <li><a href="">Panier</a>
                                        
                                     </li>
+                                    {% if is_granted('ROLE_RESTAURATEUR') %}
+                                        <li><a href="{{ path('restaurant_index') }}">Mes restaurants</a></li>
+                                    {% endif %}  
+                                    {% if is_granted('ROLE_LIVREUR') %}
+                                        <li><a href="{{ path('livreur') }}">Livraison</a></li>
+                                    {% endif %}  
                                 </ul>
                             </nav>
                         </div>
