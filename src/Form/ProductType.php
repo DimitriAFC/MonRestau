@@ -17,7 +17,6 @@ class ProductType extends AbstractType
             ->add('stock')
             ->add('picture')
             ->add('description')
-            ->add('relation_restaurant')
             ->add('relation_category')
         ;
     }

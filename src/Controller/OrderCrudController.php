@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/order/crud")
+ * @Route("/restaurateur/order/crud")
  */
 class OrderCrudController extends AbstractController
 {

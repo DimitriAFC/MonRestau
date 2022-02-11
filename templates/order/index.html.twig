@@ -27,6 +27,7 @@
       <div class="col md-3">
         <h4>Récapitulatif de ma commande</h4>
         {% for cartitem in cart %}
+         {{cartitem.product.relationRestaurant}}
           <div class="card-group">
             <div class="card-order" style="height:6rem; width:6rem;">
              <img class="card-img" src="{{asset('image/'~cartitem.product.picture)}}" alt="" style="height: 100%; width: 100%; display: block;">
@@ -43,6 +44,7 @@
         <br>
         <p>Total de votre panier : {{ total }} € </p><br>
         <a href="{{path('panier')}}" class="btn" style="color:black;">modifier ma commande</a>
+        <p class="text-center"> si vous n'êtes pas dans la même ville que le restaurant les frais de livraisons seront de 4 € </p>
       </div>
     <div class="col-md-4"></div>
     <div class="row" style="padding-top:5%;">
@@ -67,7 +69,7 @@
         <p>Total de votre panier :{{ total }} € </p>
 
         <p>Frais de livraison : {{ shipping }} €</p>
-        <p>Total TTC : <span class="totalOrder"></span> € </p>
+        <p>Total TTC : {{ total + shipping }} € </p>
         {{ form_end(form) }}
         </div>
 

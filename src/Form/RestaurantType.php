@@ -18,7 +18,6 @@ class RestaurantType extends AbstractType
             ->add('city')
             ->add('relation_zipcode')
             ->add('relation_secteur')
-            ->add('relation_user')
             ->add('relation_type')
             ->add('picture')
         ;
