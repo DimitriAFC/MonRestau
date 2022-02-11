@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moteur de recherche{% endblock %}
+
+{% block body %}
+{% if app.request.method == 'POST' %}
+     <div style="padding:3%;margin:8%;">
+        {% if restaurantSearch| length == 0 %}
+            <h4>Aucun restaurant pour votre recherche.</h4>
+           {% else %}
+               <h3 class="mt-3">Vos résultats de recherche pour {{ query }} :</h3>
+               {% for restaurant in restaurantSearch %}
+                   <div class="mt-3 p-2 bg-light border rounded">
+                       <a href="{{path('produitrestaurant',{'id':restaurant.id}) }}">
+                              <p class="text-dark"><img src="{{asset('image/'~restaurant.picture)}}"  alt="" style="height:100px;"><i class="bi bi-arrow-down-right-square-fill text-primary"></i> {{restaurant.name}} - {{restaurant.city}} </p>   
+                       </a>
+                   </div>
+              {% endfor %}
+          {% endif %}
+     </div>
+     <div style="padding:3%;margin:8%;">
+        {% if productSearch| length == 0 %}
+            <h4>Aucun produit pour votre recherche.</h4>
+           {% else %}
+               <h3 class="mt-3">Vos résultats de recherche pour {{ query }} :</h3>
+               {% for product in productSearch%}
+                   <div class="mt-3 p-2 bg-light border rounded">
+                       <a href="{{path('produit_id',{'id': product.id })}}">
+                              <p class="text-dark"><img src="{{asset('image/'~product.picture)}}"  alt="" style="height:100px;"><i class="bi bi-arrow-down-right-square-fill text-primary"></i> {{ product.name }} </p>   
+                       </a>
+                   </div>
+              {% endfor %}
+          {% endif %}
+     </div>
+{% endif %}
+{% endblock %}

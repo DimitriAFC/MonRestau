@@ -14,11 +14,9 @@ class NavBarController extends AbstractController
      */
     public function index(RestaurantTypeRepository $restaurantTypeRepository): Response
     {
-        $userRole = $this->getUser()->getRoles();
         return $this->render('nav_bar/index.html.twig', [
             'controller_name' => 'NavBarController',
             'restaurant_types' => $restaurantTypeRepository->findAll(),
-            'userRole' => $userRole,
         ]);
     }
 }
