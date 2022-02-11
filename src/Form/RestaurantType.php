@@ -2,9 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Secteur;
+use App\Entity\ZipCode;
 use App\Entity\Restaurant;
+use App\Entity\RestaurantType as EntityRestaurantType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RestaurantType extends AbstractType
