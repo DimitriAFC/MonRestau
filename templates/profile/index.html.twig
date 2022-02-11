@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+<div class="parameter">
+<h2 style="text-align:center;">Mes commandes</h2>
+<br>
+
+<div class="container">
+{% if app.user.relationorder|length == 0 %}
+   <p>Vous n'avez pas encore de commandes</p>
+  {% else %}
+{% set articleTotal= 0 %}
+    <div class="row">
+        {% for orders in app.user.relationorder %}
+        <div class="col-md-4">
+          <div class='card' style="width:18rem;">
+          <div class="card-header"> Commande du {{ orders.date ? orders.date|date('d/m/Y') : '' }}</div>
+             <div class="card-body">
+              
+                <h5 class="card-title">{{ orders.firstName }} {{ orders.LastName }}</h5>
+                  <p class="card-text">
+                    Numéro de commande:
+                    {{ orders.id }}<br>
+                    Statut de la commande :<br>
+                     {{ orders.status }}<br> 
+                    
+                    </div>
+                    <div class="card-footer">
+                    
+                    Frais de livraison : {{ orders.shipping|number_format(2) }} € <br>
+                   Total TTC: {{ orders.shipping + orders.total|number_format(2) }} €
+                    </p>
+                    
+                    <a href="{{path('profile_order_show',{'id': orders.id}) }}" class="btn">Voir</a>
+                  </div>
+                </div>
+              </div>
+            
+            {% endfor %}
+          </div>
+        {% endif %}
+        <br>
+        <br>
+       
+  </div>
+ </div>
+
+{% endblock %}

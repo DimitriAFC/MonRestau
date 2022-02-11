@@ -1,9 +1,8 @@
-{% extends 'baseRestaurant.html.twig' %}
+ {% extends 'baseLivreur.html.twig' %}
 
-{% block title %}Order{% endblock %}
+{% block title %}Hello LivreurController!{% endblock %}
 
 {% block body %}
-   
     {% set sousTotal = 0 %}
 
 <div class="content-wrapper">
@@ -26,7 +25,7 @@
                         </p>
                        
                     </div>
-                       <div class='col-md-6'>
+                    <div class='col-md-6'>
         
                     <h4> Adresse du restaurant:</h4> 
                     {{ order.restaurant }} <br>
@@ -104,16 +103,14 @@
                     <div class='col-md-6'>
                         <p>Status de la commande : {{order.status}}</p>
                         <label class='mt-5'>Changer le status</label>
-                        <form method='post' action='{{path('order_status_update')}}'>
+                        <form method='post' action='{{path('livreur_status_update')}}'>
                         <input type="hidden" name="orderId" value="{{ order.id }}">
                         <select class='form-control' name='statusId'>
-                        <option value="accepte" >commande acceptée</option>
-                           <option value="enPreparation">commande en preparation</option>
-                           <option value="prete" >prête</option>
-                           
-                            
+                    
+                        <option value="valider">Valider la livraison</option>
+ 
                         </select>
-                        <button id='update_status' class='btn btn-outline-white btn-white mt-5'>Changer</button>
+                        <button id='update_status' class='btn btn-outline-white btn-white mt-5'>Valider</button>
                         </form>
                         
                       
@@ -122,11 +119,6 @@
                 </div>
             </div>
         </div>
-        <a href="{{ path('order_crud_index') }}">back to list</a>
+        <a href="{{ path('livreur') }}">back to list</a>
 
-    <a href="{{ path('order_crud_edit', {'id': order.id}) }}">edit</a>
-
-    {{ include('order_crud/_delete_form.html.twig') }} 
-    </div>
-</div>
-{% endblock %}
+        {% endblock %}

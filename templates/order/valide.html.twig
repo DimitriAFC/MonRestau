@@ -12,7 +12,10 @@
     <br>
     <p>votre commande 
       <span style="color:black;">{{ order.id }}</span> à bien été acceptée !!</p>
-  </div>
+ Chez {{ order.restaurant }} <br>
+{{ order.restaurant.adress }}<br>
+{{ order.restaurant.city}} - 
+<br>{{ order.restaurant.phone}} </div>
   <h4 class="text-center">Retrouvez le récupilatif de votre commande :</h4>
   {% set sousTotal = 0 %}
   <br>
@@ -26,14 +29,10 @@
      {#  <p>{{ order.email }}#}
         <br>
         {{ order.number }}<br>
-      
-        <br>
         {{ order.adress }}<br>
         {{ order.zipcode }}
         {{ order.city }}
-
       </p>
-
     </div>
     
   </div>
