@@ -16,7 +16,7 @@
 {{ order.restaurant.adress }}<br>
 {{ order.restaurant.city}} - 
 <br>{{ order.restaurant.phone}} </div>
-  <h4 class="text-center">Retrouvez le récupilatif de votre commande :</h4>
+  <h4 class="text-center" style="margin-top:30px;">Retrouvez le récapitulatif de votre commande :</h4>
   {% set sousTotal = 0 %}
   <br>
   <div class="row">
@@ -63,7 +63,7 @@
         <p>{{ article.quantity}}</p>
       </div>
       <div class='col-md-3'>
-        <p>{{ article.priceunit }}</p>
+        <p>{{ article.priceunit }} €</p>
       </div>
 
     </div>

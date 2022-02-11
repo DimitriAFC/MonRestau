@@ -20,7 +20,7 @@ class VehicleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Vehicle::class,
+            'data_class' => Vehicle::class, 
         ]);
     }
 }
